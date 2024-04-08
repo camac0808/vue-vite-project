@@ -8,17 +8,17 @@ const modalIsOpen = ref(false);
 const cartCount = ref(0);
 const products = ref([
   {
-    image: "./assets/images/product1.jpg",
+    image: "product1.jpg",
     name: "Product 1",
     description: "Product 1 Description",
   },
   {
-    image: "./assets/images/product2.jpg",
+    image: "product2.jpg",
     name: "Product 2",
     description: "Product 2 Description",
   },
   {
-    image: "./assets/images/product3.jpg",
+    image: "product3.jpg",
     name: "Product 3",
     description: "Product 3 Description",
   },
@@ -52,7 +52,7 @@ onMounted(() => {
     </div>
   </div>
 
-  <img class="vue-logo" alt="Vue logo" src="./assets/images/logo.png" />
+  <img class="vue-logo" alt="Vue logo" src="/images/logo.png" />
 
   <!-- modal -->
   <AlertModal v-if="modalIsOpen === true" @on-close="closeModal" />
@@ -66,8 +66,8 @@ onMounted(() => {
       <li class="product" v-for="(product, i) in products" :key="i">
         <img
           class="product-image"
-          :src="product.image"
-          alt="product image">
+          :src="'/images/' + product.image"
+          alt="product-image">
         <h2 class="product-name">{{ product.name }}</h2>
         <p class="product-description">{{ product.description }}</p>
         <div class="button-container">
