@@ -1,0 +1,25 @@
+[
+  {
+    "image": "product1.jpg",
+    "variants": [
+      { "color": "#f1f1f1", "image": "product1.jpg" },
+      { "color": "gray", "image": "product1-white.jpg" },
+      { "color": "#70a1ff", "image": "product1-blue.jpg" }
+    ],
+    "name": "Product 1",
+    "description": "Product 1 Description",
+    "inventory": 100
+  },
+  {
+    "image": "product2.jpg",
+    "name": "Product 2",
+    "description": "Product 2 Description",
+    "inventory": 0
+  },
+  {
+    "image": "product3.jpg",
+    "name": "Product 3",
+    "description": "Product 3 Description",
+    "inventory": 50
+  }
+]
