@@ -1,21 +1,29 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useCartStore } from "@/stores/CartStore";
+import { onMounted, ref } from 'vue';
 
+// dom ref 
+const navRef = ref();
 const { cart } = storeToRefs(useCartStore());
+
+onMounted(() => {
+  console.log(navRef.value)
+});
 </script>
 
 <template>
   <div>
-    <div class="navbar">
+    <div ref="navRef" class="navbar">
       <router-link to="/">Home</router-link>
-      <router-link to="/products">Products</router-link>
       <router-link to="/board">Board</router-link>
       <router-link to="/about">About</router-link>
-      <div class="cart-container">
-        <img class="cart-icon" alt="cart icon" src="@/assets/svgs/cart.svg" />
-        <span class="cart-count">{{ cart.length }}</span>
-      </div>
+      <router-link to="/cart" class="cart-container">
+        <img class="cart-icon" alt="cart icon" src="@/assets/svgs/cart.svg" v-if="cart.length === 0"/>
+        <v-badge color="error" :content="cart.length" v-else>
+          <img class="cart-icon" alt="cart icon" src="@/assets/svgs/cart.svg" />
+        </v-badge>
+      </router-link>
     </div>
   </div>
 </template>
@@ -44,15 +52,10 @@ const { cart } = storeToRefs(useCartStore());
   display: flex;
   align-items: center;
   position: relative;
-  gap: 5px;
 }
 .cart-icon {
-  width: 22px;
+  width: 25px;
   height: 25px;
   cursor: pointer;
-}
-.cart-count {
-  padding-top: 2px;
-  line-height: 25px;
 }
 </style>

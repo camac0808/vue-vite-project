@@ -6,10 +6,13 @@ import { useCartStore } from '@/stores/CartStore';
 
 import AlertModal from "@/components/AlertModal.vue";
 
-const { cart } = storeToRefs(useCartStore());
 const productStore = useProductStore();
+// data fill
 productStore.fill();
+
 const { products } = storeToRefs(useProductStore());
+const { cart } = storeToRefs(useCartStore());
+
 
 const modalIsOpen = ref(false);
 
@@ -80,7 +83,7 @@ onMounted(() => {
 
 <style scoped>
 .vue-logo {
-  margin-top: 30px;
+  margin-top: 20px;
   width: 100px;
   height: 100px;
   transition: all 0.3s;

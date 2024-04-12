@@ -1,13 +1,11 @@
 <template>
   <div>
-    <h1>Products</h1>
+    <h1>Cart</h1>
   </div>
 </template>
 
-<script>
-  export default {
-    
-  }
+<script setup>
+
 </script>
 
 <style scoped>
