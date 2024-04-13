@@ -9,6 +9,7 @@ import "vuetify/styles";
 
 import App from "./App.vue";
 import Home from "@/pages/Home.vue";
+import Auth from "@/pages/Auth.vue";
 import About from "@/pages/About.vue";
 import Board from "@/pages/Board.vue";
 import Cart from "@/pages/Cart.vue";
@@ -24,6 +25,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", name: "Home", component: Home },
+    { path: "/auth", name: "Auth", component: Auth },
     { path: "/about", name: "About", component: About },
     { path: "/board", name: "Board", component: Board },
     { path: "/cart", name: "Cart", component: Cart },

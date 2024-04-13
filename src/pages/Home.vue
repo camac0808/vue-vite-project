@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from "@/stores/ProductStore";
-import { useCartStore } from '@/stores/CartStore';
+import { useCartStore } from "@/stores/CartStore";
 
 import AlertModal from "@/components/AlertModal.vue";
 
@@ -12,7 +12,6 @@ productStore.fill();
 
 const { products } = storeToRefs(useProductStore());
 const { cart } = storeToRefs(useCartStore());
-
 
 const modalIsOpen = ref(false);
 
@@ -39,8 +38,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <img class="vue-logo" alt="Vue logo" src="/images/logo.png" />
+  <section class="container">
+    <img class="vite-logo" alt="vite-logo" src="@/assets/svgs/vite.svg" />
     <!-- modal -->
     <AlertModal v-if="modalIsOpen === true" @on-close="closeModal" />
 
@@ -78,18 +77,26 @@ onMounted(() => {
         </div>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 <style scoped>
-.vue-logo {
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.vite-logo {
   margin-top: 20px;
   width: 100px;
   height: 100px;
   transition: all 0.3s;
 }
 
-.vue-logo:hover {
+.vite-logo:hover {
   filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.2));
 }
 
@@ -98,24 +105,25 @@ h1 {
   margin-top: 20px;
 }
 
-
-
 .product-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, auto));
+	grid-auto-flow: dense;
+  justify-items: center;
+  align-items: flex-start;
   gap: 30px;
   margin-top: 40px;
-  justify-content: center;
-  align-items: center;
 }
+
 .product {
-  width: 300px;
+  max-width: 400px;
+  min-height: 250px;
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0px 0px rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 0px rgba(131, 54, 54, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .product-image {
   width: 100%;
   border-radius: 10px;
@@ -197,5 +205,18 @@ button:disabled {
   border: 1px solid #b3b3b3;
   color: #666666;
   cursor: not-allowed;
+}
+
+/* 반응형 */
+@media screen and (max-width: 1024px) {
+  .product-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>
