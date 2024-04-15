@@ -1,8 +1,21 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useCartStore } from "@/stores/CartStore";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { useAuthStore } from "@/stores/AuthStore";
+import { useRoute } from "vue-router";
+
+// router
+const route = useRoute();
+const currentPath = ref(route.path);
+
+watchEffect(() => {
+  currentPath.value = route.path;
+});
+
+const isCurrentPath = (path) => {
+  return currentPath.value === path;
+};
 
 // dom ref
 const navRef = ref();
@@ -21,10 +34,14 @@ onMounted(() => {
     <div class="nav-container">
       <div ref="navRef" class="navbar">
         <div class="menu-container">
-          <img class="vue-logo" alt="vue-logo" src="/images/logo.png" />
-          <router-link to="/">Home</router-link>
-          <router-link to="/board">Board</router-link>
-          <router-link to="/about">About</router-link>
+          <img class="vite-logo" alt="vite-logo" src="@/assets/svgs/vite.svg" />
+          <router-link to="/" :class="{ 'current-path': isCurrentPath('/') }">Home</router-link>
+          <router-link to="/board" :class="{ 'current-path': isCurrentPath('/board') }"
+            >Board</router-link
+          >
+          <router-link to="/about" :class="{ 'current-path': isCurrentPath('/about') }"
+            >About</router-link
+          >
         </div>
         <div class="user-container">
           <router-link to="/cart" class="cart-container">
@@ -80,19 +97,28 @@ header {
   text-decoration: none;
 }
 
+.current-path {
+  color: #ffd859;
+}
+
+.navbar a:hover {
+  color: #ffd859;
+}
+
 .menu-container {
   display: flex;
   align-items: center;
   gap: 40px;
 }
 
-.vue-logo {
+.vite-logo {
   width: 30px;
   height: 30px;
   transition: all 0.2s;
+  margin-left: 5px;
 }
 
-.vue-logo:hover {
+.vite-logo:hover {
   filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.2));
 }
 
@@ -100,7 +126,7 @@ header {
   display: flex;
   align-items: center;
   position: relative;
-  gap: 30px;
+  gap: 20px;
 }
 
 .cart-container {

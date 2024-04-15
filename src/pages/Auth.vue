@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <section>
     <h1>Auth</h1>
-  </div>
+  </section>
 </template>
 
 <script setup></script>

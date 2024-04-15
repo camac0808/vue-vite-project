@@ -1,26 +1,41 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { storeToRefs } from "pinia";
-import { useProductStore } from "@/stores/ProductStore";
 import { useCartStore } from "@/stores/CartStore";
-
+import { useFetch } from "@vueuse/core";
+import Maintitle from "@/components/Maintitle.vue";
 import AlertModal from "@/components/AlertModal.vue";
-
-const productStore = useProductStore();
-// data fill
-productStore.fill();
-
-const { products } = storeToRefs(useProductStore());
-const { cart } = storeToRefs(useCartStore());
+import { useProductStore } from "@/stores/ProductStore";
 
 const modalIsOpen = ref(false);
+const selectedIndex = ref(0);
+const id = ref("");
+
+// products.json using product store
+const productStore = useProductStore();
+productStore.fill();
+const { products } = storeToRefs(useProductStore());
+
+// fetch product data using VueUse
+// computed url을 써서 id가 바뀔 때마다 url이 바뀌도록 설정
+const url = computed(() => `https://fakestoreapi.com/products/${id.value}`);
+
+// refetch: true로 설정하면 url이 바뀔 때마다 fetch를 다시 요청
+const { isFetching, data, error } = useFetch(url, {
+  refetch: true,
+})
+  .get()
+  .json();
+
+const { cart } = storeToRefs(useCartStore());
 
 function increaseCart(id) {
   cart.value.push(id);
 }
 
-function openModal() {
+function openModal(index) {
   modalIsOpen.value = true;
+  selectedIndex.value = index;
 }
 
 function closeModal() {
@@ -30,21 +45,23 @@ function closeModal() {
 function updateImage(image, index) {
   products.value[index].image = image;
 }
-
-// 생명 주기 훅
-onMounted(() => {
-  console.log("mounted");
-});
 </script>
 
 <template>
-  <section class="container">
-    <img class="vite-logo" alt="vite-logo" src="@/assets/svgs/vite.svg" />
+  <section>
+    <Maintitle />
     <!-- modal -->
-    <AlertModal v-if="modalIsOpen === true" @on-close="closeModal" />
+    <AlertModal v-if="modalIsOpen === true" @on-close="closeModal" :index="selectedIndex" />
 
-    <!-- products -->
-    <h1 class="title">Products List</h1>
+    <!-- error and loading -->
+    <div v-if="error" class="error" style="color: red; margin-top: 20px">{{ error }}</div>
+    <v-progress-circular
+      indeterminate
+      color="blue-lighten-3"
+      model-value="20"
+      :size="41"
+      v-else-if="isFetching"
+    ></v-progress-circular>
 
     <!-- 상품 목록 -->
     <ul class="product-container">
@@ -66,7 +83,7 @@ onMounted(() => {
         >
         <span class="product-inventory" v-else>Out of Stock</span>
         <div class="button-container">
-          <button class="detail-btn" @click="openModal">Detail</button>
+          <button class="detail-btn" @click="openModal(index)">Detail</button>
           <button
             class="add-cart-btn"
             :disabled="product.inventory === 0"
@@ -76,41 +93,38 @@ onMounted(() => {
           </button>
         </div>
       </li>
+      <!-- 상품 output: id, title, price, category, description, image -->
+      <li class="product" v-for="(item, index) in data" :key="index">
+        <img class="product-image" :src="item.image" alt="product-image" />
+        <div class="product-content">
+          <div class="name-container">
+            <p>{{ item.title }}</p>
+            <p>Price: {{ item.price }}</p>
+          </div>
+          <div class="button-container">
+            <button class="detail-btn" @click="openModal(index)">Detail</button>
+            <button class="add-cart-btn" @click="increaseCart(item.id)">Add Cart</button>
+          </div>
+        </div>
+      </li>
     </ul>
   </section>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-}
-
-.vite-logo {
-  margin-top: 20px;
-  width: 100px;
-  height: 100px;
-  transition: all 0.3s;
-}
-
-.vite-logo:hover {
-  filter: drop-shadow(0px 0px 20px rgba(255, 255, 255, 0.2));
-}
-
-h1 {
-  text-align: center;
-  margin-top: 20px;
+.v-progress-circular {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .product-container {
   display: grid;
   grid-template-columns: repeat(3, minmax(50px, auto));
-	grid-auto-flow: dense;
+  grid-auto-flow: dense;
   justify-items: center;
-  align-items: flex-start;
+  align-items: start;
   gap: 30px;
   margin-top: 40px;
 }
@@ -122,6 +136,11 @@ h1 {
   border-radius: 15px;
   box-shadow: 0px 0px rgba(131, 54, 54, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .product-image {
@@ -137,8 +156,16 @@ h1 {
   margin-top: 10px;
 }
 
+.name-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .product-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   margin-right: 20px;
 }

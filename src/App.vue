@@ -15,7 +15,7 @@ onMounted(() => {
   // 컴포넌트가 마운트된 후에 로딩 종료
   setTimeout(() => {
     loadingStore.endLoading();
-  }, 1000); // 5초 후에 로딩을 종료
+  }, 500); // 5초 후에 로딩을 종료
 });
 </script>
 

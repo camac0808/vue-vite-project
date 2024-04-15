@@ -21,17 +21,5 @@
     "name": "Product 3",
     "description": "Product 3 Description",
     "inventory": 50
-  },
-  {
-    "image": "product3.jpg",
-    "name": "Product 3",
-    "description": "Product 3 Description",
-    "inventory": 50
-  },
-  {
-    "image": "product3.jpg",
-    "name": "Product 3",
-    "description": "Product 3 Description",
-    "inventory": 50
   }
 ]
