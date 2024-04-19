@@ -4,8 +4,10 @@ import { createPinia } from "pinia";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import "./style.css";
 import "vuetify/styles";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "./style.css";
 
 import App from "./App.vue";
 import Home from "@/pages/Home.vue";

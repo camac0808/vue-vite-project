@@ -33,9 +33,9 @@ function increaseCart(id) {
   cart.value.push(id);
 }
 
-function openModal(index) {
+function openModal(id) {
+  selectedIndex.value = id;
   modalIsOpen.value = true;
-  selectedIndex.value = index;
 }
 
 function closeModal() {
@@ -67,30 +67,32 @@ function updateImage(image, index) {
     <ul class="product-container">
       <li class="product" v-for="(product, index) in products" :key="index">
         <img class="product-image" :src="'/images/' + product.image" alt="product-image" />
-        <div class="product-name-container">
-          <p class="product-name">{{ product.name }}</p>
-          <span
-            class="color-circle"
-            v-for="(variant, i) in product.variants"
-            :key="i"
-            :style="{ backgroundColor: variant.color }"
-            @mouseover="updateImage(variant.image, index)"
-          ></span>
-        </div>
-        <p class="product-description">{{ product.description }}</p>
-        <span class="product-inventory" v-if="product.inventory > 0"
-          >Inventory: {{ product.inventory }}</span
-        >
-        <span class="product-inventory" v-else>Out of Stock</span>
-        <div class="button-container">
-          <button class="detail-btn" @click="openModal(index)">Detail</button>
-          <button
-            class="add-cart-btn"
-            :disabled="product.inventory === 0"
-            @click="increaseCart(index)"
+        <div class="product-content">
+          <div class="product-name-container">
+            <p class="product-name">{{ product.name }}</p>
+            <span
+              class="color-circle"
+              v-for="(variant, i) in product.variants"
+              :key="i"
+              :style="{ backgroundColor: variant.color }"
+              @mouseover="updateImage(variant.image, index)"
+            ></span>
+          </div>
+          <p class="product-description">{{ product.description }}</p>
+          <span class="product-inventory" v-if="product.inventory > 0"
+            >Inventory: {{ product.inventory }}</span
           >
-            Add Cart
-          </button>
+          <span class="product-inventory" v-else>Out of Stock</span>
+          <div class="button-container">
+            <button class="detail-btn" @click="openModal(index)">Detail</button>
+            <button
+              class="add-cart-btn"
+              :disabled="product.inventory === 0"
+              @click="increaseCart(index)"
+            >
+              Add Cart
+            </button>
+          </div>
         </div>
       </li>
       <!-- 상품 output: id, title, price, category, description, image -->
@@ -98,11 +100,11 @@ function updateImage(image, index) {
         <img class="product-image" :src="item.image" alt="product-image" />
         <div class="product-content">
           <div class="name-container">
-            <p>{{ item.title }}</p>
+            <p class="product-title">{{ item.title }}</p>
             <p>Price: {{ item.price }}</p>
           </div>
           <div class="button-container">
-            <button class="detail-btn" @click="openModal(index)">Detail</button>
+            <button class="detail-btn" @click="openModal(item.id)">Detail</button>
             <button class="add-cart-btn" @click="increaseCart(item.id)">Add Cart</button>
           </div>
         </div>
@@ -130,8 +132,8 @@ function updateImage(image, index) {
 }
 
 .product {
-  max-width: 400px;
-  min-height: 250px;
+  max-width: 350px;
+  height: 600px;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 0px rgba(131, 54, 54, 0.1);
@@ -140,11 +142,13 @@ function updateImage(image, index) {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
 }
 
 .product-image {
   width: 100%;
+  min-height: 300px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -162,6 +166,11 @@ function updateImage(image, index) {
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.product-title {
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .product-name {

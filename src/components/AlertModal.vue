@@ -1,9 +1,7 @@
 <template>
   <div class="modal-container">
     <div class="modal">
-      <h2>{{ products[props.index].name }}</h2>
-      <p>{{ products[props.index].description }}</p>
-      <p>{{ products[props.index].inventory }}</p>
+      <span>id {{ props.index }}</span>
       <button @click="$emit('onClose')">Close</button>
     </div>
   </div>
@@ -14,7 +12,7 @@ import { useProductStore } from '@/stores/ProductStore';
 import { storeToRefs } from 'pinia';
 
 const props = defineProps({
-  index: Number
+  index: Number,
 });
 
 const productStore = useProductStore();
@@ -61,6 +59,10 @@ const { products } = storeToRefs(useProductStore());
   margin: 0;
 }
 .modal p {
+  color: #333;
+  margin: 0;
+}
+.modal span {
   color: #333;
   margin: 0;
 }

@@ -3,8 +3,15 @@ import Navbar from "@/components/Navbar.vue";
 import { RouterView } from "vue-router";
 import { useLoadingStore } from "./stores/LoadingStore";
 import { onBeforeMount, onMounted } from "vue";
+import { supabase } from './lib/supabaseClient';
 
 const loadingStore = useLoadingStore();
+
+async function checkUser() {
+  let { data: page, error } = await supabase
+  .from('page')
+  .select('id')
+}
 
 onBeforeMount(() => {
   // 컴포넌트가 마운트되기 전에 로딩 시작
@@ -12,10 +19,9 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
+  console.log(page)
   // 컴포넌트가 마운트된 후에 로딩 종료
-  setTimeout(() => {
-    loadingStore.endLoading();
-  }, 500); // 5초 후에 로딩을 종료
+  loadingStore.endLoading();
 });
 </script>
 
