@@ -1,4 +1,6 @@
 :root {
+  --main-color: #ffd859;
+  --background-color: #1a1b1e;
   font-family: JetBrains Mono, "Pretendard", sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -26,7 +28,7 @@ body {
   box-sizing: border-box;
   max-width: 1276px;
   min-height: 100vh;
-  background-color: #1a1b1e;
+  background-color: var(--background-color);
   color: #f9f9f9;
 }
 
@@ -48,6 +50,21 @@ h1 {
   font-size: 2.5em;
   line-height: 1.1;
   padding: 0;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: JetBrains Mono;
+  font-size: 13px;
+  line-height: 23px;
+  text-align: center;
+  font-weight: 600;
+  border: 2px solid white;
+  color: white;
 }
 
 #app {

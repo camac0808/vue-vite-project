@@ -98,7 +98,7 @@ header {
 }
 
 .current-path {
-  color: #ffd859;
+  color: var(--main-color)
 }
 
 .navbar a:hover {

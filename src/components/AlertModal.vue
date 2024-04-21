@@ -30,7 +30,7 @@ const { products } = storeToRefs(useProductStore());
 // };
 </script>
 
-<style>
+<style scoped>
 .modal-container {
   position: fixed;
   top: 0;
@@ -66,18 +66,5 @@ const { products } = storeToRefs(useProductStore());
   color: #333;
   margin: 0;
 }
-button {
-  padding: 5px 10px;
-  background-color: transparent;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  font-family: JetBrains Mono;
-  font-size: 13px;
-  line-height: 23px;
-  color: black;
-  text-align: center;
-  font-weight: 600;
-  border: 2px solid black;
-}
+
 </style>

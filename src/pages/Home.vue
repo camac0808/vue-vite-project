@@ -230,7 +230,7 @@ function updateImage(image, index) {
 }
 
 .add-cart-btn:hover:not([disabled]) {
-  background-color: white;
+  background-color: transparent;
   color: #167dff;
   font-weight: 800;
   border: 1px solid #167dff;

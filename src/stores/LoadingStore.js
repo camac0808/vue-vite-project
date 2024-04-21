@@ -14,7 +14,7 @@ export const useLoadingStore = defineStore('LoadingStore', {
     },
     endLoading() {
       this.isLoading = false;
-    }
+    },
   },
   // getters
 })
