@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.vue";
 import { RouterView } from "vue-router";
 import { useLoadingStore } from "./stores/LoadingStore";
 import { onBeforeMount, onMounted } from "vue";
+import Spinner from './components/Spinner.vue';
 
 const loadingStore = useLoadingStore();
 
@@ -21,22 +22,9 @@ onMounted(() => {
   <!-- navigation bar -->
   <Navbar />
   <!-- loading component -->
-  <v-progress-circular
-    indeterminate
-    color="blue-lighten-3"
-    model-value="20"
-    :size="41"
-    v-if="loadingStore.isLoading"
-  ></v-progress-circular>
+  <Spinner v-if="loadingStore.isLoading" />
   <!-- main router -->
   <RouterView v-else />
 </template>
 
-<style scoped>
-.v-progress-circular {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
+<style scoped></style>
