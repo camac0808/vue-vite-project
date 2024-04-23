@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import { createPinia } from "pinia";
 import { createVuetify } from "vuetify";
+
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "vuetify/styles";
@@ -15,6 +16,15 @@ import Auth from "@/pages/Auth.vue";
 import About from "@/pages/About.vue";
 import Board from "@/pages/Board.vue";
 import Cart from "@/pages/Cart.vue";
+
+import { plugin, defaultConfig } from "@formkit/vue";
+import { rootClasses } from "../formkit.theme";
+
+const config = defaultConfig({
+  config: {
+    rootClasses,
+  },
+});
 
 const vuetify = createVuetify({
   components,
@@ -34,4 +44,4 @@ const router = createRouter({
   ],
 });
 
-createApp(App).use(router).use(pinia).use(vuetify).mount("#app");
+createApp(App).use(router).use(pinia).use(vuetify).use(plugin, config).mount("#app");

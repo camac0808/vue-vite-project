@@ -7,11 +7,24 @@
       <button @click="signInWithGoogle">Google Login</button>
       <button @click="logOut" v-if="isLogged">Logout</button>
       <button @click="logIn" v-else>Login</button>
-      <form @submit.prevent="signUp" class="">
-        <input type="text" placeholder="email" v-model="email" />
-        <input type="password" placeholder="password" v-model="password" />
-        <button type="submit">Sign Up</button>
-      </form>
+      <FormKit type="form" @submit.prevent="signUp" submit-label="Register">
+        <FormKit
+          type="text"
+          name="email"
+          id="email"
+          validation="required|email"
+          v-model="email"
+          placeholder="email"
+        />
+        <FormKit
+          type="password"
+          name="password"
+          id="password"
+          validation="required|min:6"
+          v-model="password"
+          placeholder="password"
+        />
+      </FormKit>
     </div>
   </section>
 </template>
@@ -29,8 +42,8 @@ const isLogged = ref(false);
 
 async function getUser() {
   await supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session
-  })
+    session.value = data.session;
+  });
 
   if (session.value) {
     isLogged.value = true;
@@ -117,4 +130,6 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
