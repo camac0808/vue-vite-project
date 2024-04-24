@@ -1,64 +1,62 @@
 <template>
   <section>
-    <h1>Auth</h1>
-    <!-- vuetify 문법 -->
-    <div class="d-flex flex-column ga-2">
-      <button @click="signInWithGithub">Github Login</button>
-      <button @click="signInWithGoogle">Google Login</button>
-      <button @click="logOut" v-if="isLogged">Logout</button>
-      <button @click="logIn" v-else>Login</button>
-      <FormKit
-        id="form"
-        type="form"
-        :actions="false"
-        :classes="{
-          form: 'bg-gray-800 p-[20px] rounded-lg',
-        }"
-      >
+    <div class="">
+      <h1 class="mb-5">Auth</h1>
+      <!-- vuetify 문법 -->
+      <div class="d-flex flex-column ga-2">
+        <button class="github-btn" @click="signInWithGithub"><v-icon icon="mdi-github" />Github Login</button>
+        <button class="google-btn" @click="signInWithGoogle"><v-icon icon="mdi-google" />Google Login</button>
+        <button @click="logOut" v-if="isLogged">Logout</button>
+        <button @click="logIn" v-else>Login</button>
         <FormKit
-          type="text"
-          name="email"
-          label="Email"
-          id="email"
-          validation="required|email"
-          maxlength="25"
-          v-model="email"
-          placeholder="email"
+          id="form"
+          type="form"
           :classes="{
-            input: 'text-white p-[12px]',
-            label: 'text-gray-500 text-left',
-            message: 'text-left',
+            form: 'bg-gray-800 p-[20px] rounded-lg',
           }"
-        />
-        <FormKit
-          type="password"
-          name="password"
-          label="Password"
-          id="password"
-          maxlength="20"
-          validation="required|contains_alpha|contains_numeric|?length:8"
-          v-model="password"
-          placeholder="password"
-          :classes="{
-            input: 'text-white',
-            label: 'text-gray-500 text-left',
-            message: 'text-left',
-          }"
-        />
-        <FormKit
-          type="password"
-          name="password_confirm"
-          label="Confirm password"
-          placeholder="Confirm password"
-          validation="required|confirm"
-          :classes="{
-            input: 'text-white',
-            label: 'text-gray-500 text-left',
-            message: 'text-left',
-          }"
-        />
-        <FormKit type="submit" @submit="signUp">Register</FormKit>
-      </FormKit>
+        >
+          <FormKit
+            type="text"
+            name="email"
+            label="Email"
+            id="email"
+            validation="required|email"
+            maxlength="25"
+            placeholder="email"
+            :classes="{
+              input: 'text-white p-[12px]',
+              label: 'text-gray-500 text-left',
+              message: 'text-left',
+            }"
+          />
+          <FormKit
+            type="password"
+            name="password"
+            label="Password"
+            id="password"
+            maxlength="20"
+            validation="required|contains_alpha|contains_numeric|?length:8"
+            placeholder="password"
+            :classes="{
+              input: 'text-white',
+              label: 'text-gray-500 text-left',
+              message: 'text-left',
+            }"
+          />
+          <FormKit
+            type="password"
+            name="password_confirm"
+            label="Confirm password"
+            placeholder="Confirm password"
+            validation="required|confirm"
+            :classes="{
+              input: 'text-white',
+              label: 'text-gray-500 text-left',
+              message: 'text-left',
+            }"
+          />
+        </FormKit>
+      </div>
     </div>
   </section>
 </template>
@@ -164,4 +162,17 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.github-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+</style>

@@ -6,8 +6,10 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import "vuetify/styles";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
+
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/js/bootstrap.bundle.min";
 import "@formkit/themes/genesis";
 
 import App from "./App.vue";
@@ -18,20 +20,19 @@ import Board from "@/pages/Board.vue";
 import Cart from "@/pages/Cart.vue";
 
 import { plugin, defaultConfig } from "@formkit/vue";
-import { genesisIcons } from '@formkit/icons'
 
 import "./style.css";
 
 const config = defaultConfig({
   theme: "genesis",
-  icons: {
-    ...genesisIcons,
-  },
 });
 
 const vuetify = createVuetify({
   components,
   directives,
+  icons: {
+    defaultSet: 'mdi', // This is already the default value - only for display purposes
+  },
 });
 
 const pinia = createPinia();

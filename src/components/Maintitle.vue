@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col items-center">
     <img class="vite-logo" alt="vite-logo" src="@/assets/svgs/vite.svg" />
     <h1 class="title">Products List</h1>
   </div>

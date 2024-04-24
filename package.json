@@ -15,12 +15,12 @@
     "@supabase/supabase-js": "^2.42.5",
     "@supabase/ui": "^0.36.5",
     "@vueuse/core": "^10.9.0",
-    "bootstrap": "^5.3.3",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@mdi/font": "^7.4.47",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.19",

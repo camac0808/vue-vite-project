@@ -9,18 +9,18 @@
           <p>{{ item.body }}</p>
         </div>
         <div class="d-flex ga-3">
-          <button id="edit-btn" @click="editSupabaseData(item.id)">Edit</button>
-          <button id="delete-btn" @click="deleteSupabaseData(item.id)">Delete</button>
+          <button id="edit-btn" @click="editBoardData(item.id)">Edit</button>
+          <button id="delete-btn" @click="deleteBoardData(item.id)">Delete</button>
         </div>
       </li>
     </ul>
-    <input
+    <button
       type="button"
       value="create"
       id="create-btn"
       class="btn btn-light"
-      @click="insertSupabaseData"
-    />
+      @click="insertBoardData"
+    >Create</button>
   </section>
 </template>
 
@@ -33,7 +33,7 @@ const supabaseData = ref([]);
 
 const isLoading = ref(true);
 
-async function getSupabaseData() {
+async function getBoardData() {
   try {
     // table 'page'에서 모든 column을 가져옴
     let { data: page, error } = await supabase
@@ -41,6 +41,7 @@ async function getSupabaseData() {
       .select("*")
       .order("id", { ascending: true });
     if (error) throw error;
+    console.log(page);
     supabaseData.value = page;
   } catch (err) {
     console.error(err);
@@ -50,7 +51,7 @@ async function getSupabaseData() {
   }
 }
 
-async function insertSupabaseData() {
+async function insertBoardData() {
   try {
     let title = prompt("title?");
     let body = prompt("body?");
@@ -62,13 +63,13 @@ async function insertSupabaseData() {
 
     if (error) throw error;
 
-    getSupabaseData();
+    getBoardData();
   } catch (err) {
     console.error(err);
   }
 }
 
-async function deleteSupabaseData(id) {
+async function deleteBoardData(id) {
   try {
     let confirmed = confirm("글을 삭제하시겠습니까?");
 
@@ -76,14 +77,14 @@ async function deleteSupabaseData(id) {
       let { error } = await supabase.from("page").delete().eq("id", id);
       if (error) throw error;
       // Delete successful, refresh data
-      getSupabaseData();
+      getBoardData();
     }
   } catch (err) {
     console.error(err);
   }
 }
 
-async function editSupabaseData(id) {
+async function editBoardData(id) {
   try {
     let title = prompt("title?");
     let body = prompt("body?");
@@ -93,18 +94,22 @@ async function editSupabaseData(id) {
     let { error } = await supabase.from("page").update({ title, body }).eq("id", id);
     if (error) throw error;
 
-    getSupabaseData();
+    getBoardData();
   } catch (err) {
     console.error(err);
   }
 }
 
 onMounted(() => {
-  getSupabaseData();
+  getBoardData();
 });
 </script>
 
 <style scoped>
+.box {
+  border: 1px solid #ccc;
+}
+
 h1 {
   margin-bottom: 30px;
 }
