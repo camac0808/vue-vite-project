@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
     "./formkit.theme.mjs" 
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
   },

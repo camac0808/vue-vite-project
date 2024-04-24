@@ -8,7 +8,7 @@ import * as directives from "vuetify/directives";
 import "vuetify/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import "./style.css";
+import "@formkit/themes/genesis";
 
 import App from "./App.vue";
 import Home from "@/pages/Home.vue";
@@ -18,11 +18,14 @@ import Board from "@/pages/Board.vue";
 import Cart from "@/pages/Cart.vue";
 
 import { plugin, defaultConfig } from "@formkit/vue";
-import { rootClasses } from "../formkit.theme";
+import { genesisIcons } from '@formkit/icons'
+
+import "./style.css";
 
 const config = defaultConfig({
-  config: {
-    rootClasses,
+  theme: "genesis",
+  icons: {
+    ...genesisIcons,
   },
 });
 

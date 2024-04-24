@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/icons": "^1.6.2",
     "@formkit/themes": "^1.6.2",
     "@formkit/vue": "^1.6.2",
     "@supabase/supabase-js": "^2.42.5",

@@ -7,23 +7,57 @@
       <button @click="signInWithGoogle">Google Login</button>
       <button @click="logOut" v-if="isLogged">Logout</button>
       <button @click="logIn" v-else>Login</button>
-      <FormKit type="form" @submit.prevent="signUp" submit-label="Register">
+      <FormKit
+        id="form"
+        type="form"
+        :actions="false"
+        :classes="{
+          form: 'bg-gray-800 p-[20px] rounded-lg',
+        }"
+      >
         <FormKit
           type="text"
           name="email"
+          label="Email"
           id="email"
           validation="required|email"
+          maxlength="25"
           v-model="email"
           placeholder="email"
+          :classes="{
+            input: 'text-white p-[12px]',
+            label: 'text-gray-500 text-left',
+            message: 'text-left',
+          }"
         />
         <FormKit
           type="password"
           name="password"
+          label="Password"
           id="password"
-          validation="required|min:6"
+          maxlength="20"
+          validation="required|contains_alpha|contains_numeric|?length:8"
           v-model="password"
           placeholder="password"
+          :classes="{
+            input: 'text-white',
+            label: 'text-gray-500 text-left',
+            message: 'text-left',
+          }"
         />
+        <FormKit
+          type="password"
+          name="password_confirm"
+          label="Confirm password"
+          placeholder="Confirm password"
+          validation="required|confirm"
+          :classes="{
+            input: 'text-white',
+            label: 'text-gray-500 text-left',
+            message: 'text-left',
+          }"
+        />
+        <FormKit type="submit" @submit="signUp">Register</FormKit>
       </FormKit>
     </div>
   </section>
@@ -130,6 +164,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
