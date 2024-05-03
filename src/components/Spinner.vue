@@ -7,8 +7,11 @@
       :size="41"
     ></v-progress-circular>
   </div>
+  <!-- * 안녕하세요 -->
+  <!-- ! 중요해 -->
+  <!-- ? 뭐지 -->
+  <!-- TODO: 해야할 것 -->
 </template>
-
 <script setup></script>
 
 <style scoped>

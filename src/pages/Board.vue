@@ -20,7 +20,10 @@
       id="create-btn"
       class="btn btn-light"
       @click="insertBoardData"
-    >Create</button>
+    >
+      Create
+    </button>
+    <div class="h-10 w-16 md:w-32 lg:w-48 border-2"></div>
   </section>
 </template>
 
